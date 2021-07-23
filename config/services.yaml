@@ -1,0 +1,21 @@
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude: '../src/{DependencyInjection,Entity,Tests,Kernel.php}'
+
+    Doctrine\DBAL\Configuration:
+
+    Doctrine\DBAL\Connection:
+        factory: 'Doctrine\DBAL\DriverManager::getConnection'
+        arguments:
+            -
+                url: '%env(DB_URL)%'
+                driverOptions: {20: false}
+            - '@Doctrine\DBAL\Configuration'
+                
